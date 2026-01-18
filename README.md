@@ -1,76 +1,52 @@
 # Sudoku Generator (Wave Function Collapse)
 
-This project is a Java implementation of a Sudoku board generator using the Wave Function Collapse (WFC) algorithm. It was developed as an academic exercise focusing on algorithms, concurrency, and efficient use of Java collections and streams.
+This project is a Java implementation of a **Sudoku board generator** using the **Wave Function Collapse (WFC)** algorithm. It was developed as an academic exercise focusing on algorithm design, correctness, concurrency, and effective use of Java collections and streams.
 
 ## Overview
 
-Generates valid 9×9 Sudoku solution grids
-
-Enforces all Sudoku rules (row, column, and block constraints)
-
-Uses Wave Function Collapse to progressively reduce possibilities
-
-Displays generated boards and reports invalid placements
+- Generates valid 9×9 Sudoku **solution** grids  
+- Enforces all Sudoku rules (row, column, and 3×3 block constraints)  
+- Uses the Wave Function Collapse algorithm to reduce possibilities  
+- Detects invalid states and regenerates boards when necessary  
 
 ## Core Classes
-SudokuGrid
 
-Represents a Sudoku board
+### SudokuGrid
 
-Stores final values (facts) for each cell
+- Represents a Sudoku board and its final values (facts)
+- Provides methods to:
+  - Set, retrieve, and clear cell values
+  - Validate value placement
+  - Detect row, column, and block conflicts
+- A placement may be invalid for multiple reasons at once
 
-Provides methods to:
+### SudokuGenerator
 
-Set, retrieve, and clear values
-
-Validate placements
-
-Detect row, column, and block conflicts (individually or combined)
-
-SudokuGenerator
-
-Implements the Wave Function Collapse algorithm
-
-Maintains possible values for each cell
-
-Selects cells with the lowest entropy (fewest possibilities)
-
-Randomly collapses possibilities into facts
-
-Regenerates the board if an invalid state is reached
+- Implements the Wave Function Collapse algorithm
+- Maintains possible values for each cell
+- Selects the cell with the lowest entropy (fewest possibilities)
+- Randomly collapses a possibility into a fact
+- Propagates constraints across rows, columns, and blocks
+- Restarts generation if an invalid state is reached
 
 ## Multithreaded Extension
 
-The generator was extended to:
-
-Produce 10,000 unique Sudoku boards
-
-Use multiple threads to:
-
-Generate boards
-
-Check for uniqueness
-
-Save valid boards to disk
-
-Treat boards as identical under:
-
-Rotation (90°, 180°, 270°)
-
-Horizontal and vertical mirroring
-
-Save boards as numbered text files (0.txt, 1.txt, …)
+- Generates **10,000 unique Sudoku boards**
+- Uses multiple threads to:
+  - Generate boards
+  - Check for uniqueness
+  - Save boards to disk
+- Boards are considered identical under:
+  - Rotation (90°, 180°, 270°)
+  - Horizontal and vertical mirroring
+  - Any combination of rotation and mirroring
+- Boards are saved as numbered text files (`0.txt`, `1.txt`, `2.txt`, ...)
 
 ## Technologies & Concepts
 
-Java
-
-Java Collections Framework
-
-Java Streams API
-
-Multithreading & synchronization
-
-Algorithm design and optimization
-
-File I/O
+- Java  
+- Java Collections Framework  
+- Java Streams API  
+- Multithreading and synchronization  
+- Algorithm design  
+- File I/O  
